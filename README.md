@@ -1,4 +1,4 @@
-# cc-slick-07
+# akka-http-products
 
 ## Overview
 
