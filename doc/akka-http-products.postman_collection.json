@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "f479a111-ef60-4efe-a4db-ea572e382233",
+		"name": "akka-http-products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"macbook\",\n    \"vendor\": \"apple\",\n    \"price\": 200,\n    \"expirationDate\": \"2021-08-30\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/products/a96ff2e7-5453-4946-9ffe-492521222a5e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"a96ff2e7-5453-4946-9ffe-492521222a5e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"macbook\",\n    \"vendor\": \"apple\",\n    \"price\": 299,\n    \"expirationDate\": \"2021-08-30\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/products/a96ff2e7-5453-4946-9ffe-492521222a5e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"a96ff2e7-5453-4946-9ffe-492521222a5e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/products/a96ff2e7-5453-4946-9ffe-492521222a5e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"a96ff2e7-5453-4946-9ffe-492521222a5e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of products filtered by vendor name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/products?vendor=apple&case=no",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "vendor",
+							"value": "apple"
+						},
+						{
+							"key": "case",
+							"value": "no"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get list of all products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product by uuid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/products/a96ff2e7-5453-4946-9ffe-492521222a5e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"a96ff2e7-5453-4946-9ffe-492521222a5e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products grouped by vendor name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/products-by-vendor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products-by-vendor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/products-statistics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products-statistics"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

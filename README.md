@@ -198,4 +198,9 @@ Then H2 driver can be replaced by other drivers for databases like Postgres, MyS
 - Product data validation can be simplified to use just `String` to return errors (instead of using `case class Invalid`).
 
 
+## Postman
+
+Folder `doc` contains file `akka-http-products.postman_collection.json`.
+This file can be imported in Postman and used for development, test, etc.
+
 
