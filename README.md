@@ -200,7 +200,7 @@ Then H2 driver can be replaced by other drivers for databases like Postgres, MyS
 
 ## Postman
 
-Folder `doc` contains file `akka-http-products.postman_collection.json`.
+Folder `doc` contains file [`akka-http-products.postman_collection.json`](./doc/akka-http-products.postman_collection.json).
 This file can be imported in Postman and used for development, test, etc.
 
 
