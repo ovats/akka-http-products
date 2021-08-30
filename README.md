@@ -19,6 +19,13 @@ Every product is defined by:
 
 Product constraints are described later in `POST /products/{uuid}`.
 
+## Requirements
+
+You will need:
+
+- Java 11
+- sbt
+
 ## API
 
 List of implemented endpoints:
@@ -183,8 +190,17 @@ Main class in `api` subproject is `com.cc.CCApiMain`.
 It's possible to add plugins for creating docker images (`sbt-native-packager` for example).
 This is not implemented in this solution.
 
+## Run tests
 
-## Possible improvements
+From a console/terminal run:
+
+```
+sbt test
+```
+
+## Some possible improvements
+
+This is a list of **some** possible improvements:
 
 - For OAS 3.0 API documentation it can be generated manually or by using [Tapir](https://github.com/softwaremill/tapir) library.
 This library allows to create, declare and implement all endpoints and then the documentation is generated automatically (no manual `json` or `yaml` generation).
