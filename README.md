@@ -179,6 +179,8 @@ From a console/terminal just run:
 sbt api/run
 ```
 
+Main class in `api` subproject is `com.cc.CCApiMain`.
+
 It's possible to add plugins for creating docker images (`sbt-native-packager` for example).
 This is not implemented in this solution.
 
@@ -197,9 +199,4 @@ Then H2 driver can be replaced by other drivers for databases like Postgres, MyS
 - Product data validation can be simplified to use just `String` to return errors (instead of using `case class Invalid`).
 
 
-# Notes 
-
-## comentarios/notas
-
-- ver mis notas de Pull Request
 
