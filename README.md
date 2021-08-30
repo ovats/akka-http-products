@@ -33,7 +33,7 @@ List of implemented endpoints:
 - `GET /products-statistics` => get products statistics
 - `GET /ping`
 
-When adding or updating a product the following validations are implemented:
+When adding or updating a `product` the following validations are implemented:
 
 - product name can not be empty
 - product name max length is 10 chars
@@ -91,28 +91,27 @@ curl -X DELETE http://localhost:8080/products/52ae4ed7-d318-44ac-8c33-a4ad6a3c0d
 
 ### GET /products/{uuid}
 
-Get the data of a product given its `uuid`:
+Get the data of a `product` given its `uuid`:
 
 ```
-curl -X GET http://localhost:8080/products/uuid/a96ff2e7-5453-4946-9ffe-492521222a5e \
+curl -X GET http://localhost:8080/products/uuid/a96ff2e7-5453-4946-9ffe-492521222a5e
 ```
-
 
 ### GET /products?vendor=name&case=no
 
-Get the list of products of a given `vendor`:
+Get the list of `products` of a given `vendor`:
 
 ```
 curl -X GET 'http://localhost:8080/products?vendor=apple&case=no' 
 ```
 
 The query parameter `case` indicates if the search is case sensitive or not.
-Valid values are`yes` or `no`. 
-Default is `no ` (not case sensitive).
+Valid values are `yes` or `no`. 
+Default is `no` (no case sensitive).
 
 ### GET /products
 
-Get the list of all products:
+Get the list of all `products`:
 
 ```
 curl -X GET http://localhost:8080/products 
@@ -120,7 +119,7 @@ curl -X GET http://localhost:8080/products
 
 ### GET /products-by-vendor
 
-Get the list of vendors and its list of products:
+Get the list of `vendors` and its list of `products`:
 
 ```
 curl -X GET http://localhost:8080/products-by-vendor 
@@ -128,7 +127,7 @@ curl -X GET http://localhost:8080/products-by-vendor
 
 ### GET /products-statistics
 
-Get products statistics:
+Get `products` statistics:
 
 - total number of products
 - total number of vendors 
