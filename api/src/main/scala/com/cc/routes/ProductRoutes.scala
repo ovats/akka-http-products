@@ -19,8 +19,8 @@ class ProductRoutes(productsService: ProductsService)
     with ResponseHandler
     with CustomDirectives {
 
-  private val createProduct = post {
-    extractUUID { productUUID =>
+  private val createProduct =
+    postWithUUID { productUUID =>
       logger.debug(s"POST /products/$productUUID")
       entity(as[ProductView]) { productData =>
         val fut = productsService.addProduct(productUUID, productData)
@@ -33,10 +33,9 @@ class ProductRoutes(productsService: ProductsService)
         }
       }
     }
-  }
 
-  private val updateProduct = put {
-    extractUUID { productUUID =>
+  private val updateProduct =
+    putWithUUID { productUUID =>
       logger.debug(s"PUT /products/$productUUID")
       entity(as[ProductView]) { productData =>
         val fut = productsService.updateProduct(productUUID, productData)
@@ -49,10 +48,9 @@ class ProductRoutes(productsService: ProductsService)
         }
       }
     }
-  }
 
-  private val deleteProduct = delete {
-    extractUUID { productUUID =>
+  private val deleteProduct =
+    deleteWithUUID { productUUID =>
       logger.debug(s"DELETE /products/$productUUID")
       val fut = productsService.deleteProduct(productUUID)
       onComplete(fut) {
@@ -63,7 +61,6 @@ class ProductRoutes(productsService: ProductsService)
         case Failure(ex)       => handleFailure(ex, "products")
       }
     }
-  }
 
   private val findProducts = get {
     parameters("vendor".as[String], "case".as[String].withDefault("no")) { (vendorName, caseSensitive) =>
