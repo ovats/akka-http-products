@@ -13,68 +13,54 @@ import java.util.UUID
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
 
-class ProductRoutes(productsService: ProductsService) extends LazyLogging with RoutesConfig with ResponseHandler {
+class ProductRoutes(productsService: ProductsService)
+    extends LazyLogging
+    with RoutesConfig
+    with ResponseHandler
+    with CustomDirectives {
 
   private val createProduct = post {
-    path(Segment) { productUUID =>
-      pathEndOrSingleSlash {
-        logger.debug(s"POST /products/$productUUID")
-        Try(UUID.fromString(productUUID)) match {
-          case Failure(_) => complete(StatusCodes.BadRequest, ErrorsResponse(List(s"Invalid uuid: $productUUID")))
-          case Success(validUuid) =>
-            entity(as[ProductView]) { productData =>
-              val fut = productsService.addProduct(validUuid, productData)
-              onComplete(fut) {
-                case Success(ProductCreated(_)) => complete(StatusCodes.OK)
-                case Success(ProductAlreadyExists) =>
-                  complete(StatusCodes.Conflict, ErrorsResponse(List(s"Product already exists with uuid $validUuid")))
-                case Success(response) => handleServiceResponse(response, "products")
-                case Failure(ex)       => handleFailure(ex, "products")
-              }
-            }
+    extractUUID { productUUID =>
+      logger.debug(s"POST /products/$productUUID")
+      entity(as[ProductView]) { productData =>
+        val fut = productsService.addProduct(productUUID, productData)
+        onComplete(fut) {
+          case Success(ProductCreated(_)) => complete(StatusCodes.OK)
+          case Success(ProductAlreadyExists) =>
+            complete(StatusCodes.Conflict, ErrorsResponse(List(s"Product already exists with uuid $productUUID")))
+          case Success(response) => handleServiceResponse(response, "products")
+          case Failure(ex)       => handleFailure(ex, "products")
         }
       }
     }
   }
 
   private val updateProduct = put {
-    path(Segment) { productUUID =>
-      pathEndOrSingleSlash {
-        logger.debug(s"PUT /products/$productUUID")
-        Try(UUID.fromString(productUUID)) match {
-          case Failure(_) => complete(StatusCodes.BadRequest, ErrorsResponse(List(s"Invalid uuid: $productUUID")))
-          case Success(validUuid) =>
-            entity(as[ProductView]) { productData =>
-              val fut = productsService.updateProduct(validUuid, productData)
-              onComplete(fut) {
-                case Success(ProductUpdated(p)) => complete(StatusCodes.OK, p.toRestView)
-                case Success(ProductNotFound) =>
-                  complete(StatusCodes.NotFound, ErrorsResponse(List(s"Product does not exists, uuid $validUuid")))
-                case Success(response) => handleServiceResponse(response, "products")
-                case Failure(ex)       => handleFailure(ex, "products")
-              }
-            }
+    extractUUID { productUUID =>
+      logger.debug(s"PUT /products/$productUUID")
+      entity(as[ProductView]) { productData =>
+        val fut = productsService.updateProduct(productUUID, productData)
+        onComplete(fut) {
+          case Success(ProductUpdated(p)) => complete(StatusCodes.OK, p.toRestView)
+          case Success(ProductNotFound) =>
+            complete(StatusCodes.NotFound, ErrorsResponse(List(s"Product does not exists, uuid $productUUID")))
+          case Success(response) => handleServiceResponse(response, "products")
+          case Failure(ex)       => handleFailure(ex, "products")
         }
       }
     }
   }
 
   private val deleteProduct = delete {
-    path(Segment) { productUUID =>
-      pathEndOrSingleSlash {
-        logger.debug(s"DELETE /products/$productUUID")
-        Try(UUID.fromString(productUUID)) match {
-          case Failure(_) => complete(StatusCodes.BadRequest, ErrorsResponse(List(s"Invalid uuid: $productUUID")))
-          case Success(validUuid) =>
-            val fut = productsService.deleteProduct(validUuid)
-            onComplete(fut) {
-              case Success(ProductDeleted) => complete(StatusCodes.NoContent)
-              case Success(ProductNotFound) =>
-                complete(StatusCodes.NotFound, ErrorsResponse(List(s"Product does not exists, uuid $validUuid")))
-              case Success(response) => handleServiceResponse(response, "products")
-              case Failure(ex)       => handleFailure(ex, "products")
-            }
-        }
+    extractUUID { productUUID =>
+      logger.debug(s"DELETE /products/$productUUID")
+      val fut = productsService.deleteProduct(productUUID)
+      onComplete(fut) {
+        case Success(ProductDeleted) => complete(StatusCodes.NoContent)
+        case Success(ProductNotFound) =>
+          complete(StatusCodes.NotFound, ErrorsResponse(List(s"Product does not exists, uuid $productUUID")))
+        case Success(response) => handleServiceResponse(response, "products")
+        case Failure(ex)       => handleFailure(ex, "products")
       }
     }
   }
